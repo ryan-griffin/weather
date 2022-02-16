@@ -1,5 +1,5 @@
 {
-    "name": "app",
+    "name": "weather",
     "private": true,
     "scripts": {
         "dev": "next dev",
