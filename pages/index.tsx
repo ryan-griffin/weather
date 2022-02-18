@@ -19,8 +19,8 @@ export async function getServerSideProps(): Promise<{
 }
 
 const Home: NextPage<Props> = ({ data }) => (
-    <main>
-        <h1>{data.current.temp}°F</h1>
+    <main className="flex justify-center items-center w-screen h-screen">
+        <h1 className="text-9xl font-semibold">{data.current.temp}&deg;F</h1>
     </main>
 );
 
