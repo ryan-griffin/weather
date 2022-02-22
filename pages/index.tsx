@@ -31,9 +31,11 @@ const Home: NextPage<Props> = ({ data }) => {
     const date = new Date();
     const hour = date.getHours();
     let gradient: string | undefined;
-    if (hour >= 20 || hour <= 4) {
+    if (hour >= 20 || hour <= 3) {
         gradient = "bg-gradient-to-br from-gray-800 to-gray-900";
-    } else if (hour >= 5 && hour <= 13) {
+    } else if (hour >= 4 && hour <= 7) {
+        gradient = "bg-gradient-to-br from-sky-700 to-sky-900";
+    } else if (hour >= 8 && hour <= 13) {
         gradient = "bg-gradient-to-br from-sky-400 to-sky-600";
     } else if (hour >= 14 && hour <= 19) {
         gradient = "bg-gradient-to-br from-sky-700 to-sky-900";
@@ -59,12 +61,23 @@ const Home: NextPage<Props> = ({ data }) => {
                 {data.current.weather[0].description}
             </h1>
             <div className="flex gap-10">
-                <h1 className="text-4xl font-semibold">
-                    L:{data.daily[0].temp.min}&deg;
-                </h1>
-                <h1 className="text-4xl font-semibold">
-                    H:{data.daily[0].temp.max}&deg;
-                </h1>
+                <div className="flex items-center gap-1">
+                    <Image
+                        src="/arrow_down.png"
+                        height={30}
+                        width={30}
+                        alt=""
+                    />
+                    <h1 className="text-4xl font-semibold">
+                        {data.daily[0].temp.min}&deg;
+                    </h1>
+                </div>
+                <div className="flex items-center gap-1">
+                    <Image src="/arrow_up.png" height={30} width={30} alt="" />
+                    <h1 className="text-4xl font-semibold">
+                        {data.daily[0].temp.max}&deg;
+                    </h1>
+                </div>
             </div>
         </main>
     );
