@@ -35,48 +35,62 @@ const Home: NextPage<Props> = ({ data }) => {
         gradient = "bg-gradient-to-br from-sky-400/20 to-sky-600/20";
     } else if (hour >= 4 && hour <= 7) {
         gradient = "bg-gradient-to-br from-sky-400/40 to-sky-600/40";
-    } else if (hour >= 8 && hour <= 13) {
+    } else if (hour >= 8 && hour <= 15) {
         gradient = "bg-gradient-to-br from-sky-400 to-sky-600";
-    } else if (hour >= 14 && hour <= 19) {
+    } else if (hour >= 16 && hour <= 19) {
         gradient = "bg-gradient-to-br from-sky-400/40 to-sky-600/40";
     }
 
+    let filter: string | undefined;
+    if (data.current.weather[0].description == "fog") {
+        filter = "bg-white/25";
+    }
+
     return (
-        <main
-            className={`flex flex-col justify-center items-center w-screen h-screen bg-black ${gradient}`}
-        >
-            <h1 className="text-4xl font-semibold">{data.location[0].name}</h1>
-            <div className="flex items-center">
-                <Image
-                    src={`http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`}
-                    height={128}
-                    width={128}
-                    alt=""
-                />
-                <h1 className="text-8xl font-semibold">
-                    {data.current.temp}&deg;
+        <main className={`w-screen h-screen bg-black ${gradient}`}>
+            <div
+                className={`flex flex-col justify-center items-center w-screen h-screen ${filter}`}
+            >
+                <h1 className="text-4xl font-semibold">
+                    {data.location[0].name}
                 </h1>
-            </div>
-            <h1 className="text-4xl font-semibold mb-6">
-                {data.current.weather[0].description}
-            </h1>
-            <div className="flex gap-10">
-                <div className="flex items-center gap-1">
+                <div className="flex items-center">
                     <Image
-                        src="/arrow_down.png"
-                        height={30}
-                        width={30}
+                        src={`http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`}
+                        height={128}
+                        width={128}
                         alt=""
                     />
-                    <h1 className="text-4xl font-semibold">
-                        {data.daily[0].temp.min}&deg;
+                    <h1 className="text-8xl font-semibold">
+                        {data.current.temp}&deg;
                     </h1>
                 </div>
-                <div className="flex items-center gap-1">
-                    <Image src="/arrow_up.png" height={30} width={30} alt="" />
-                    <h1 className="text-4xl font-semibold">
-                        {data.daily[0].temp.max}&deg;
-                    </h1>
+                <h1 className="text-4xl font-semibold mb-6">
+                    {data.current.weather[0].description}
+                </h1>
+                <div className="flex gap-10">
+                    <div className="flex items-center gap-1">
+                        <Image
+                            src="/arrow_down.png"
+                            height={30}
+                            width={30}
+                            alt=""
+                        />
+                        <h1 className="text-4xl font-semibold">
+                            {data.daily[0].temp.min}&deg;
+                        </h1>
+                    </div>
+                    <div className="flex items-center gap-1">
+                        <Image
+                            src="/arrow_up.png"
+                            height={30}
+                            width={30}
+                            alt=""
+                        />
+                        <h1 className="text-4xl font-semibold">
+                            {data.daily[0].temp.max}&deg;
+                        </h1>
+                    </div>
                 </div>
             </div>
         </main>
