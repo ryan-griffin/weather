@@ -42,9 +42,7 @@ const Home: NextPage<Props> = ({ data }) => {
     }
 
     let filter: string | undefined;
-    if (data.current.weather[0].description == "fog") {
-        filter = "bg-white/25";
-    }
+    if (data.current.weather[0].description == "fog") filter = "bg-white/25";
 
     return (
         <main className={`w-screen h-screen bg-black ${gradient}`}>
