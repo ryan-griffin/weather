@@ -32,18 +32,18 @@ const Home: NextPage<Props> = ({ data }) => {
     const hour = date.getHours();
     let gradient: string | undefined;
     if (hour >= 20 || hour <= 3) {
-        gradient = "bg-gradient-to-br from-gray-800 to-gray-900";
+        gradient = "bg-gradient-to-br from-sky-400/20 to-sky-600/20";
     } else if (hour >= 4 && hour <= 7) {
-        gradient = "bg-gradient-to-br from-sky-700 to-sky-900";
+        gradient = "bg-gradient-to-br from-sky-400/40 to-sky-600/40";
     } else if (hour >= 8 && hour <= 13) {
         gradient = "bg-gradient-to-br from-sky-400 to-sky-600";
     } else if (hour >= 14 && hour <= 19) {
-        gradient = "bg-gradient-to-br from-sky-700 to-sky-900";
+        gradient = "bg-gradient-to-br from-sky-400/40 to-sky-600/40";
     }
 
     return (
         <main
-            className={`flex flex-col justify-center items-center w-screen h-screen ${gradient}`}
+            className={`flex flex-col justify-center items-center w-screen h-screen bg-black ${gradient}`}
         >
             <h1 className="text-4xl font-semibold">{data.location[0].name}</h1>
             <div className="flex items-center">
