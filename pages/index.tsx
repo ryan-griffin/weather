@@ -1,33 +1,40 @@
 import { NextPage } from "next";
 import Image from "next/image";
+import { useState, useEffect, SetStateAction } from "react";
 
-export async function getServerSideProps(): Promise<{
-    props: { data: string };
-}> {
-    const key: string = process.env.API_KEY as string;
-    const city: string = "shrewsbury";
-    const state: string = "25";
-    const country: string = "US";
+const Home: NextPage = () => {
+    async function weather(lat: number, lon: number): Promise<string> {
+        const key: string = "0686f686ede29ca2291172073b88be4d";
+        const res = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${lat}&lon=${lon}&appid=${key}`
+        );
+        const data = await res.json();
+        return data;
+    }
 
-    const locationRes = await fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&appid=${key}`
-    );
-    const location = await locationRes.json();
-
-    const weatherRes = await fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=${location[0].lat}&lon=${location[0].lon}&appid=${key}`
-    );
-    const data = await weatherRes.json();
-    data.location = location;
-
-    return {
-        props: {
-            data,
+    const [data, setData] = useState({
+        weather: [{ description: "" }, { icon: "" }],
+        name: "",
+        main: {
+            temp: "",
+            temp_min: "",
+            temp_max: "",
         },
-    };
-}
+    });
 
-const Home: NextPage<Props> = ({ data }) => {
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition((pos: GeolocationPosition) => {
+            weather(pos.coords.latitude, pos.coords.longitude).then(
+                (result: any) => {
+                    setData(result);
+                }
+            );
+        });
+    }, []);
+
+    let filter: string | undefined;
+    if (data.weather[0].description == "fog") filter = "bg-white/25";
+
     const date = new Date();
     const hour = date.getHours();
     let gradient: string | undefined;
@@ -41,30 +48,25 @@ const Home: NextPage<Props> = ({ data }) => {
         gradient = "bg-gradient-to-br from-sky-400/40 to-sky-600/40";
     }
 
-    let filter: string | undefined;
-    if (data.current.weather[0].description == "fog") filter = "bg-white/25";
-
     return (
         <main className={`w-screen h-screen bg-black ${gradient}`}>
             <div
                 className={`flex flex-col justify-center items-center w-screen h-screen ${filter}`}
             >
-                <h1 className="text-4xl font-semibold">
-                    {data.location[0].name}
-                </h1>
+                <h1 className="text-4xl font-semibold">{data.name}</h1>
                 <div className="flex items-center">
                     <Image
-                        src={`http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`}
+                        src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
                         height={128}
                         width={128}
                         alt=""
                     />
                     <h1 className="text-8xl font-semibold">
-                        {data.current.temp}&deg;
+                        {data.main.temp}&deg;
                     </h1>
                 </div>
                 <h1 className="text-4xl font-semibold mb-6">
-                    {data.current.weather[0].description}
+                    {data.weather[0].description}
                 </h1>
                 <div className="flex gap-10">
                     <div className="flex items-center gap-1">
@@ -75,7 +77,7 @@ const Home: NextPage<Props> = ({ data }) => {
                             alt=""
                         />
                         <h1 className="text-4xl font-semibold">
-                            {data.daily[0].temp.min}&deg;
+                            {data.main.temp_min}&deg;
                         </h1>
                     </div>
                     <div className="flex items-center gap-1">
@@ -86,7 +88,7 @@ const Home: NextPage<Props> = ({ data }) => {
                             alt=""
                         />
                         <h1 className="text-4xl font-semibold">
-                            {data.daily[0].temp.max}&deg;
+                            {data.main.temp_max}&deg;
                         </h1>
                     </div>
                 </div>
@@ -94,23 +96,5 @@ const Home: NextPage<Props> = ({ data }) => {
         </main>
     );
 };
-
-interface Props {
-    data: {
-        location: [{ name: string }];
-        current: {
-            temp: string;
-            weather: [{ description: string; icon: string }];
-        };
-        daily: [
-            {
-                temp: {
-                    min: string;
-                    max: string;
-                };
-            }
-        ];
-    };
-}
 
 export default Home;
