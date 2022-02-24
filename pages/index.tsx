@@ -97,12 +97,19 @@ const Home: NextPage<Props> = ({ data }) => {
 
 interface Props {
     data: {
-        location: any[];
+        location: [{ name: string }];
         current: {
             temp: string;
-            weather: any[];
+            weather: [{ description: string; icon: string }];
         };
-        daily: any[];
+        daily: [
+            {
+                temp: {
+                    min: string;
+                    max: string;
+                };
+            }
+        ];
     };
 }
 
