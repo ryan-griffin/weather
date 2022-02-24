@@ -1,12 +1,11 @@
 import { NextPage } from "next";
 import Image from "next/image";
-import { useState, useEffect, SetStateAction } from "react";
+import { useState, useEffect } from "react";
 
 const Home: NextPage = () => {
     async function weather(lat: number, lon: number): Promise<string> {
-        const key: string = "0686f686ede29ca2291172073b88be4d";
         const res = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${lat}&lon=${lon}&appid=${key}`
+            `https://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_API_KEY}`
         );
         const data = await res.json();
         return data;
