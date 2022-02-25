@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import Snow from "../components/Snow";
 
 const Home: NextPage = () => {
     async function weather(lat: number, lon: number): Promise<string> {
@@ -44,14 +45,17 @@ const Home: NextPage = () => {
         });
     }, []);
 
-    let filter: string | undefined;
-    if (data.weather[0].description == "fog") filter = "bg-white/25";
+    let effect: JSX.Element | undefined;
+    if (data.weather[0].description == "snow") {
+        effect = <Snow count={200} />;
+    } else if (data.weather[0].description == "light snow") {
+        effect = <Snow count={100} />;
+    }
 
     return (
         <main className={`w-screen h-screen bg-black ${gradient}`}>
-            <div
-                className={`flex flex-col justify-center items-center w-screen h-screen ${filter}`}
-            >
+            {effect}
+            <div className="fixed top-0 left-0 flex flex-col justify-center items-center w-screen h-screen">
                 <h1 className="text-4xl font-semibold">{data.name}</h1>
                 <div className="flex items-center">
                     <Image
