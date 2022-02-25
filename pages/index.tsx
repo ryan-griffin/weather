@@ -45,8 +45,6 @@ const Home: NextPage = () => {
         });
     }, []);
 
-    data.weather[0].description = "snow";
-
     let effect: JSX.Element | undefined;
     if (data.weather[0].description == "snow") {
         effect = <Snow count={400} />;
