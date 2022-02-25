@@ -45,13 +45,16 @@ const Home: NextPage = () => {
         });
     }, []);
 
+    data.weather[0].description = "snow";
+
     let effect: JSX.Element | undefined;
     if (data.weather[0].description == "snow") {
-        effect = <Snow count={200} />;
+        effect = <Snow count={400} />;
     } else if (data.weather[0].description == "light snow") {
-        effect = <Snow count={100} />;
+        effect = <Snow count={200} />;
+    } else if (data.weather[0].description == "fog") {
+        effect = <div className="h-screen w-screen bg-white/25"></div>;
     }
-
     return (
         <main className={`w-screen h-screen bg-black ${gradient}`}>
             {effect}
