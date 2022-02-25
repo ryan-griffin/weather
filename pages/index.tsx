@@ -21,6 +21,8 @@ const Home: NextPage = () => {
         },
     });
 
+    const [gradient, setGradient] = useState("");
+
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((pos: GeolocationPosition) => {
             weather(pos.coords.latitude, pos.coords.longitude).then(
@@ -28,24 +30,22 @@ const Home: NextPage = () => {
                     setData(result);
                 }
             );
+            const date = new Date();
+            const hour = date.getHours();
+            if (hour >= 20 || hour <= 3) {
+                setGradient("bg-gradient-to-br from-sky-400/20 to-sky-600/20");
+            } else if (hour >= 4 && hour <= 7) {
+                setGradient("bg-gradient-to-br from-sky-400/40 to-sky-600/40");
+            } else if (hour >= 8 && hour <= 15) {
+                setGradient("bg-gradient-to-br from-sky-400 to-sky-600");
+            } else if (hour >= 16 && hour <= 19) {
+                setGradient("bg-gradient-to-br from-sky-400/40 to-sky-600/40");
+            }
         });
     }, []);
 
     let filter: string | undefined;
     if (data.weather[0].description == "fog") filter = "bg-white/25";
-
-    const date = new Date();
-    const hour = date.getHours();
-    let gradient: string | undefined;
-    if (hour >= 20 || hour <= 3) {
-        gradient = "bg-gradient-to-br from-sky-400/20 to-sky-600/20";
-    } else if (hour >= 4 && hour <= 7) {
-        gradient = "bg-gradient-to-br from-sky-400/40 to-sky-600/40";
-    } else if (hour >= 8 && hour <= 15) {
-        gradient = "bg-gradient-to-br from-sky-400 to-sky-600";
-    } else if (hour >= 16 && hour <= 19) {
-        gradient = "bg-gradient-to-br from-sky-400/40 to-sky-600/40";
-    }
 
     return (
         <main className={`w-screen h-screen bg-black ${gradient}`}>
