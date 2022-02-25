@@ -6,7 +6,6 @@ const Snow: FC<Props> = ({ count }) => {
     for (let i = 0; i < count; i++) {
         const posX: number = Math.random() * 101;
         const posY: number = Math.random() * 101;
-        console.log(posX, posY);
         flakes.push(
             <div
                 className="h-2 w-2 bg-white/60 rounded-full fixed"
