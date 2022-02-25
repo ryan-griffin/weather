@@ -70,7 +70,7 @@ const Home: NextPage = () => {
                 <div className="flex gap-10">
                     <div className="flex items-center gap-1">
                         <Image
-                            src="/arrow_down.png"
+                            src="/icons/arrow_down.png"
                             height={30}
                             width={30}
                             alt=""
@@ -81,7 +81,7 @@ const Home: NextPage = () => {
                     </div>
                     <div className="flex items-center gap-1">
                         <Image
-                            src="/arrow_up.png"
+                            src="/icons/arrow_up.png"
                             height={30}
                             width={30}
                             alt=""
