@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import Rain from "../components/Rain";
 import Snow from "../components/Snow";
 
 const Home: NextPage = () => {
@@ -46,7 +47,12 @@ const Home: NextPage = () => {
     }, []);
 
     let effect: JSX.Element | undefined;
-    if (data.weather[0].description == "snow") {
+    if (
+        data.weather[0].description == "rain" ||
+        data.weather[0].description == "shower rain"
+    ) {
+        effect = <Rain count={100} />;
+    } else if (data.weather[0].description == "snow") {
         effect = <Snow count={400} />;
     } else if (data.weather[0].description == "light snow") {
         effect = <Snow count={200} />;

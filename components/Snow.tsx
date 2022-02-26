@@ -8,15 +8,15 @@ const Snow: FC<Props> = ({ count }) => {
         const posX: number = Math.random() * 101;
         const duration: number = Math.random() * (10 - 4) + 4;
         const delay: number = Math.random() * 5;
+
         flakes.push(
             <>
                 <div
                     key={i}
-                    className={`fixed bg-white/60 shadow-[0_0_10px_1px_rgba(255,255,255,0.1)] rounded-full min-w-[8px] min-h-[8px]`}
+                    className={`fixed bg-white/60 shadow-[0_0_10px_1px_rgba(255,255,255,0.1)] rounded-full min-w-[8px] min-h-[8px] top-[-15px]`}
                     style={{
                         width: `${size}px`,
                         height: `${size}px`,
-                        top: "-15px",
                         left: `${posX}%`,
                         animation: `snow ${duration}s linear ${delay}s infinite`,
                     }}
