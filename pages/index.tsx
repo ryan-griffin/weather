@@ -53,6 +53,7 @@ const Home: NextPage = () => {
     } else if (data.weather[0].description == "fog") {
         effect = <div className="h-screen w-screen bg-white/25"></div>;
     }
+
     return (
         <main className={`w-screen h-screen bg-black ${gradient}`}>
             {effect}
