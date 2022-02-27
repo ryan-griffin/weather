@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import Rain from "../components/Rain";
 import Snow from "../components/Snow";
+import Clouds from "../components/Clouds";
 
 const Home: NextPage = () => {
     async function weather(lat: number, lon: number): Promise<string> {
@@ -58,6 +59,12 @@ const Home: NextPage = () => {
         effect = <Snow count={200} />;
     } else if (data.weather[0].description == "fog") {
         effect = <div className="h-screen w-screen bg-white/25"></div>;
+    } else if (
+        data.weather[0].description == "few clouds" ||
+        data.weather[0].description == "scattered clouds" ||
+        data.weather[0].description == "broken clouds"
+    ) {
+        effect = <Clouds />;
     }
 
     return (

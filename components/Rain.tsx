@@ -6,7 +6,7 @@ const Rain: FC<Props> = ({ count }) => {
     for (let i = 0; i < count; i++) {
         const size: number = Math.random() * 8;
         const posX: number = Math.random() * 101;
-        const duration: number = Math.random() * (1.5 - 1) + 1;
+        const duration: number = Math.random() * (1 - 0.8) + 0.8;
         const delay: number = Math.random() * 5;
 
         drops.push(
