@@ -33,7 +33,7 @@ const Rain: FC<Props> = ({ count }) => {
 
     return (
         <>
-            <div className="h-screen w-screen bg-gradient-to-b from-white/20 to-white/0">
+            <div className="h-screen w-screen bg-gradient-to-b from-gray-600 via-grey-500 to-gray-500/50">
                 {drops}
             </div>
         </>
